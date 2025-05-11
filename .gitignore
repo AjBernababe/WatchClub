@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# codesandbox
+/.codesandbox/
+
 # production
 /build
 
