@@ -8,8 +8,7 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Your Project</title>
-        {/* Add other meta tags or head elements as needed */}
+        <title>WatchClub</title>
       </head>
       <body>{children}</body>
     </html>
