@@ -1,43 +1,30 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
+import { BaseDocument } from "./utils/baseModel";
 
-export interface IUser extends Document {
-  username: string;
+export interface IUser extends BaseDocument {
   email: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  username: string;
+  firstName: string;
+  lastName: string;
+  sex: "male" | "female";
+  birthDate: Date;
 }
 
 const userSchema = new Schema<IUser>(
   {
-    username: {
-      type: String,
-      required: [true, "Please provide a username"],
-      max_length: [30, "Username cannot be more than 30 characters"],
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: [true, "Please provide an email"],
-      unique: true, // No duplicate emails
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please provide a valid email address",
-      ],
-    },
-    password: {
-      type: String,
-      required: [true, "Please provide a password"],
-      minlength: [8, "Password must be at least 8 characters long"],
-    },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    sex: { type: String, enum: ["male", "female"], required: true },
+    birthDate: { type: Date, required: true },
   },
-  {
-    // Automatically add createdAt and updatedAt fields
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-// Check if model already exists to prevent overwriting in development with hot reload
-const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+const User: Model<IUser> =
+  mongoose.models.User || mongoose.model<IUser>("User", userSchema);
 
-export default User as Model<IUser>;
+export default User;

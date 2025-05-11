@@ -1,24 +1,25 @@
 import mongoose from "mongoose";
 
-interface ConnectionStatus {
-  isConnected: boolean | number;
+const MONGODB_URI = process.env.MONGODB_URI as string;
+
+// Create a global variable to cache the connection
+let cached = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
 }
 
-const connection: ConnectionStatus = {
-  isConnected: false,
-};
+async function dbConnect(): Promise<typeof mongoose> {
+  if (cached.conn) return cached.conn;
 
-async function dbConnect() {
-  if (connection.isConnected) {
-    return;
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGODB_URI, {
+      bufferCommands: false,
+    });
   }
 
-  if (!process.env.MONGODB_URI) {
-    throw new Error("Please define MONGODB_URI");
-  }
-
-  const db = await mongoose.connect(process.env.MONGODB_URI);
-  connection.isConnected = db.connections[0].readyState;
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
 
 export default dbConnect;
