@@ -39,7 +39,7 @@ export default function RegisterPage() {
 
       setFormSuccess("Registration successful!");
       setTimeout(() => {
-        router.push("/login");
+        router.push("/auth/login");
       }, 2000);
     } catch (err) {
       console.error("Unexpected error:", err);

@@ -59,11 +59,6 @@ const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60,
   },
 
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
-
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
