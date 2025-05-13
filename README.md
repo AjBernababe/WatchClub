@@ -1,3 +1,3 @@
-# 🎬 MovieClub
+# 🎬 WatchClub
 
-> _"The first rule of Watch Club is: you do not talk about Watch Club."_
+> _"The first rule of Watch Club is: please talk about about Watch Club."_
