@@ -1,0 +1,5 @@
+Color Scheme
+    Brand     #00ADB5
+
+Font-Family
+    Inter

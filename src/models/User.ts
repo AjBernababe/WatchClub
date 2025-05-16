@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { BaseDocument } from "./utils/baseModel";
 
-export interface IUser extends BaseDocument {
+interface IUser extends BaseDocument {
   email: string;
   password: string;
   username: string;

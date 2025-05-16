@@ -1,20 +1,27 @@
-"use client";
-
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Inter } from "next/font/google";
+import { ReactNode } from "react";
+import { Metadata } from "next";
+import { SessionWrapper } from "@/components/wrappers/SessionWrapper";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Watch Club",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <title>Watch Club</title>
-      </head>
-      <body>
-        <SessionProvider>{children}</SessionProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <SessionWrapper>
+          <ThemeProvider>
+            <ThemeToggle />
+            {children}
+          </ThemeProvider>
+        </SessionWrapper>
       </body>
     </html>
   );

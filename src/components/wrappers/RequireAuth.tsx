@@ -10,7 +10,7 @@ type RequireAuthProps = {
   redirectTo?: string;
 };
 
-export default function RequireAuth({
+export function RequireAuth({
   children,
   require = "auth",
   redirectTo,
