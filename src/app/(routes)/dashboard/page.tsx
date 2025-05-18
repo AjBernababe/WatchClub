@@ -1,5 +1,5 @@
 "use client";
-import { RequireAuth } from "@/components/wrappers/RequireAuth";
+import { RequireAuth } from "@/components/providers/RequireAuth";
 import { useSession, signOut } from "next-auth/react";
 
 export default function DashboardPage() {

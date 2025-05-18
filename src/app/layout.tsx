@@ -1,8 +1,8 @@
-import "./globals.css";
+import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import { Metadata } from "next";
-import { SessionWrapper } from "@/components/wrappers/SessionWrapper";
+import { SessionWrapper } from "@/components/providers/SessionWrapper";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 

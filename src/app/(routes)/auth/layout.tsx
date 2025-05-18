@@ -1,6 +1,6 @@
 "use client";
 
-import { RequireAuth } from "@/components/wrappers/RequireAuth";
+import { RequireAuth } from "@/components/providers/RequireAuth";
 import { ReactNode } from "react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
