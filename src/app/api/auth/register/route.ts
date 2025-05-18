@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import dbConnect from "@/lib/dbConnect";
-import User from "@/models/User";
+import dbConnect from "@/lib/db/connect";
+import User from "@/lib/db/models/User";
 import { registerSchema } from "@/lib/validation/authSchema";
 import {
   validateOrThrow,
   ZodValidationError,
-} from "@/lib/utils/validateOrThrow";
+} from "@/lib/validation/validateOrThrow";
 
 export async function POST(req: Request) {
   try {

@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
-import dbConnect from "@/lib/dbConnect";
+import dbConnect from "@/lib/db/connect";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { loginSchema } from "@/lib/validation/authSchema";
-import { validateOrThrow } from "@/lib/utils/validateOrThrow";
+import { validateOrThrow } from "@/lib/validation/validateOrThrow";
 
 interface AuthUser {
   id: string;

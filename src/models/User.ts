@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { BaseDocument } from "./utils/baseModel";
+import { BaseDocument } from "@/lib/db/baseDocument";
 
 interface IUser extends BaseDocument {
   email: string;
