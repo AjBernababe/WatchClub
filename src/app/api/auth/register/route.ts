@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/db/connect";
-import User from "@/lib/db/models/User";
+import User from "@/models/User";
 import { registerSchema } from "@/lib/validation/authSchema";
 import {
   validateOrThrow,
