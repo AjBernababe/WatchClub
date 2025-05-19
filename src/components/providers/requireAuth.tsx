@@ -1,11 +1,11 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 type RequireAuthProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   require?: "auth" | "guest";
   redirectTo?: string;
 };

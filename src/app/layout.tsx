@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
-import { ReactNode } from "react";
 import { Metadata } from "next";
 import { SessionWrapper } from "@/components/providers/sessionProvider";
 import { ThemeProvider } from "@/components/providers/themeProvider";
@@ -12,7 +11,11 @@ export const metadata: Metadata = {
   title: "Watch Club",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
@@ -23,7 +26,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             enableSystem
             disableTransitionOnChange
           >
-            <ThemeToggle />
             {children}
           </ThemeProvider>
         </SessionWrapper>
