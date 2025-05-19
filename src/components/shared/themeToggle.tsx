@@ -2,6 +2,8 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -16,11 +18,12 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   return (
-    <button
+    <Button
+      className="cursor-pointer rounded-full"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="fixed top-4 right-4 z-50 text-3xl cursor-pointer"
+      size="icon"
     >
-      {isDark ? "☀️" : "🌙"}
-    </button>
+      {isDark ? <Sun /> : <Moon />}
+    </Button>
   );
 }

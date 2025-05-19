@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
+    "@radix-ui/react-slot": "^1.2.2",
     "bcryptjs": "^3.0.2",
     "mongoose": "^8.14.1",
     "next": "15.3.2",
