@@ -26,7 +26,7 @@ export function NavAuthButton() {
 
   if (session) {
     return (
-      <Button asChild className="bg-brand">
+      <Button asChild variant="brand">
         <Link href="/dashboard">Open Watch Club</Link>
       </Button>
     );
@@ -37,7 +37,7 @@ export function NavAuthButton() {
       <Button asChild>
         <Link href="/auth/register">Sign Up</Link>
       </Button>
-      <Button className="bg-brand" asChild>
+      <Button variant="brand" asChild>
         <Link href="/auth/login">Login</Link>
       </Button>
     </>
