@@ -1,78 +1,99 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { loginSchema, LoginType } from "@/lib/validation/authSchema";
-import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginType>({
+  const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
   });
 
-  const [formError, setFormError] = useState("");
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { isSubmitting },
+  } = form;
 
   const onSubmit = async (data: LoginType) => {
-    setFormError("");
-
     const res = await signIn("credentials", {
       ...data,
-      redirect: false, // We handle redirect manually
+      callbackUrl: "/dashboard",
     });
-
-    if (!res || res.error) {
-      setFormError("Invalid email or password.");
-    } else {
-      router.push("/"); // Redirect to home or dashboard
-    }
   };
 
   return (
-    <main className="max-w-md mx-auto mt-12 p-4">
-      <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-      {formError && (
-        <p className="text-red-600 text-center mb-4">{formError}</p>
-      )}
+    <div className="flex items-center justify-center h-screen">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Login to your account</CardTitle>
+        </CardHeader>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label>Email</label>
-          <input
-            {...register("email")}
-            className="w-full border px-3 py-2 rounded"
-          />
-          {errors.email && (
-            <p className="text-red-600 text-sm">{errors.email.message}</p>
-          )}
-        </div>
+        <Form {...form}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <CardContent>
+              <div className="grid w-full items-center gap-4">
+                <FormField
+                  control={control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Email Address" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </CardContent>
 
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            {...register("password")}
-            className="w-full border px-3 py-2 rounded"
-          />
-          {errors.password && (
-            <p className="text-red-600 text-sm">{errors.password.message}</p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Logging in..." : "Login"}
-        </button>
-      </form>
-    </main>
+            <CardFooter>
+              <Button type="submit" className="w-full">
+                Login
+              </Button>
+            </CardFooter>
+          </form>
+        </Form>
+      </Card>
+    </div>
   );
 }
