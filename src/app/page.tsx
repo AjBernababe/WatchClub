@@ -1,5 +1,5 @@
 import { ThemeToggle } from "@/components/shared/themeToggle";
-import { Typography } from "@/components/ui/typography";
+import { H1, H3, Muted } from "@/components/ui/typography";
 import Image from "next/image";
 import {
   NavAuthButton,
@@ -16,15 +16,15 @@ export default function HomePage() {
             <Image
               src="/navbarLogo.png"
               alt="Logo"
-              width={46}
-              height={46}
+              width={42}
+              height={42}
               priority
             />
           </Link>
         </div>
 
         <div>
-          <Typography.Muted>Work in Progress</Typography.Muted>
+          <Muted>Work in Progress</Muted>
         </div>
 
         <div className="flex items-center justify-center gap-2">
@@ -33,11 +33,9 @@ export default function HomePage() {
       </nav>
 
       <main className="m-20">
-        <Typography.H3>Start tracking your favorite shows with</Typography.H3>
-        <Typography.H1 className="text-brand">Watch Club</Typography.H1>
-        <Typography.H3>
-          First rule of Watch Club: Please talk about Watch Club 👉👈
-        </Typography.H3>
+        <H3>Start tracking your favorite shows with</H3>
+        <H1 className="text-brand">Watch Club</H1>
+        <H3>First rule of Watch Club: Please talk about Watch Club 👉👈</H3>
 
         <StartTrackingButton />
       </main>

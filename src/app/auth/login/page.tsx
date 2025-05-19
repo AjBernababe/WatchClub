@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, LoginInput } from "@/lib/validation/authSchema";
+import { loginSchema, LoginType } from "@/lib/validation/authSchema";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -13,13 +13,13 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginInput>({
+  } = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
   });
 
   const [formError, setFormError] = useState("");
 
-  const onSubmit = async (data: LoginInput) => {
+  const onSubmit = async (data: LoginType) => {
     setFormError("");
 
     const res = await signIn("credentials", {

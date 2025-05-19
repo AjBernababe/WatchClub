@@ -4,7 +4,7 @@ import { z } from "zod";
 export const registerSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  username: z.string().min(3).max(20),
+  username: z.string().min(3).max(16),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   sex: z.enum(["male", "female"]),
@@ -13,13 +13,13 @@ export const registerSchema = z.object({
   }),
   secretCode: z.string().min(1),
 });
-export type RegisterInput = z.infer<typeof registerSchema>;
+export type RegisterType = z.infer<typeof registerSchema>;
 //#endregion
 
 //#region Login schema
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().nonempty(),
+  email: z.string().min(1, "Email is required").email("Invalid email format"),
+  password: z.string().min(1, "Password is required"),
 });
-export type LoginInput = z.infer<typeof loginSchema>;
+export type LoginType = z.infer<typeof loginSchema>;
 //#endregion

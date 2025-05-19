@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, RegisterInput } from "@/lib/validation/authSchema";
+import { registerSchema, RegisterType } from "@/lib/validation/authSchema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +11,7 @@ export default function RegisterPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterInput>({
+  } = useForm<RegisterType>({
     resolver: zodResolver(registerSchema),
   });
 
@@ -20,7 +20,7 @@ export default function RegisterPage() {
 
   const router = useRouter();
 
-  const onSubmit = async (data: RegisterInput) => {
+  const onSubmit = async (data: RegisterType) => {
     setFormError("");
     setFormSuccess("");
     try {

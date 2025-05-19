@@ -116,17 +116,3 @@ export function Blockquote({ className, children, ...props }: TypographyProps) {
     </blockquote>
   );
 }
-
-// Group all typography components for easier imports
-export const Typography = {
-  H1,
-  H2,
-  H3,
-  H4,
-  P,
-  Lead,
-  Large,
-  Small,
-  Muted,
-  Blockquote,
-};
