@@ -1,1 +1,1 @@
-install shadcn UI
+Log in and register pages

@@ -19,9 +19,8 @@ export function ThemeToggle() {
 
   return (
     <Button
-      className="cursor-pointer rounded-full"
+      className="cursor-pointer rounded-full h-12 w-12"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      size="icon"
     >
       {isDark ? <Sun /> : <Moon />}
     </Button>
