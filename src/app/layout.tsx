@@ -2,9 +2,9 @@ import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import { Metadata } from "next";
-import { SessionWrapper } from "@/components/providers/SessionProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { SessionWrapper } from "@/components/providers/sessionProvider";
+import { ThemeProvider } from "@/components/providers/themeProvider";
+import { ThemeToggle } from "@/components/shared/themeToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +17,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <SessionWrapper>
-          <ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <ThemeToggle />
             {children}
           </ThemeProvider>
