@@ -32,7 +32,7 @@ export default function HomePage() {
         </div>
       </nav>
 
-      <main className="px-10 py-20">
+      <main className="m-20">
         <Typography.H3>Start tracking your favorite shows with</Typography.H3>
         <Typography.H1 className="text-brand">Watch Club</Typography.H1>
         <Typography.H3>

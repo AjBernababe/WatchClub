@@ -40,7 +40,7 @@ export function NavAuthButton() {
 
   return (
     <>
-      <Button asChild>
+      <Button asChild variant="outline">
         <Link href="/auth/register">Sign Up</Link>
       </Button>
       <Button variant="brand" asChild>
