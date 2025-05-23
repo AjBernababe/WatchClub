@@ -2,7 +2,7 @@ import { DynamicLink } from "@/components/homePage/dynamicLink";
 import { H1, H3, Muted } from "@/components/ui/typography";
 import Image from "next/image";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/authentication/auth";
 
 export default async function HomePage() {
   const session = await auth();
