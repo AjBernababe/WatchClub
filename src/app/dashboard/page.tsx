@@ -1,19 +1,25 @@
-"use client";
-import { RequireAuth } from "@/components/providers/requireAuth";
-import { useSession, signOut } from "next-auth/react";
+import { auth, signOut } from "@/lib/auth"; // or from "next-auth"
+import { redirect } from "next/navigation";
 
-export default function DashboardPage() {
-  const { data: session } = useSession();
+// Server action (must be outside JSX)
+async function signOutAction() {
+  "use server";
+  await signOut({ redirect: false });
+  redirect("/"); // or "/auth/login"
+}
 
-  const username = session?.user?.username;
+export default async function YourComponent() {
+  const session = await auth();
 
   return (
-    <RequireAuth>
-      <div>
-        <h1>Watch Club</h1>
-        <p>Welcome {username}</p>
-        <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button>
-      </div>
-    </RequireAuth>
+    <div>
+      <h1>Dashboard</h1>
+      <h2>{session?.user?.name}</h2>
+      <p>Welcome to the dashboard!</p>
+
+      <form action={signOutAction}>
+        <button type="submit">Sign Out</button>
+      </form>
+    </div>
   );
 }

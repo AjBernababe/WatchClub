@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
-import { SessionWrapper } from "@/components/providers/sessionProvider";
 import { ThemeProvider } from "@/components/providers/themeProvider";
 import { ThemeToggle } from "@/components/shared/themeToggle";
 
@@ -19,16 +18,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SessionWrapper>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </SessionWrapper>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+
+          <div className="fixed bottom-10 right-10">
+            <ThemeToggle />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

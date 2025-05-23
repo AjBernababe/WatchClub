@@ -2,16 +2,9 @@ import { z } from "zod";
 
 //#region Registration schema
 export const registerSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  username: z.string().min(3).max(16),
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  sex: z.enum(["male", "female"]),
-  birthDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: "Invalid date format",
-  }),
-  secretCode: z.string().min(1),
+  email: z.string().min(1, "Email is required").email("Invalid email format"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+  secretCode: z.string().min(1, "Secret code is required"),
 });
 export type RegisterType = z.infer<typeof registerSchema>;
 //#endregion

@@ -1,33 +1,20 @@
-"use client";
-
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import { Button } from "../ui/button";
+import { Session } from "next-auth";
 
-export function StartTrackingButton() {
-  const { data: session, status } = useSession();
+type DynamicLinkProps = {
+  session: Session | null;
+  variant: "main" | "nav";
+};
 
-  const href = session ? "/dashboard" : "/auth/login";
-
-  return (
-    <Button asChild disabled={status === "loading"}>
-      {status === "loading" ? (
-        <span>
-          <Spinner className="h-8 w-8" />
-        </span>
-      ) : (
+export async function DynamicLink({ session, variant }: DynamicLinkProps) {
+  if (variant === "main") {
+    const href = session ? "/dashboard" : "/login";
+    return (
+      <Button asChild>
         <Link href={href}>Start tracking</Link>
-      )}
-    </Button>
-  );
-}
-
-export function NavAuthButton() {
-  const { data: session, status } = useSession();
-
-  if (status === "loading") {
-    return <Spinner className="h-8 w-8" />;
+      </Button>
+    );
   }
 
   if (session) {
@@ -41,10 +28,11 @@ export function NavAuthButton() {
   return (
     <>
       <Button asChild variant="outline">
-        <Link href="/auth/register">Sign Up</Link>
+        <Link href="/register">Create an Account</Link>
       </Button>
-      <Button variant="brand" asChild>
-        <Link href="/auth/login">Login</Link>
+
+      <Button asChild variant="brand">
+        <Link href="/login">Login</Link>
       </Button>
     </>
   );

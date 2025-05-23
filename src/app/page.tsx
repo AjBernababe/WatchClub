@@ -1,13 +1,12 @@
-import { ThemeToggle } from "@/components/shared/themeToggle";
+import { DynamicLink } from "@/components/homePage/dynamicLink";
 import { H1, H3, Muted } from "@/components/ui/typography";
 import Image from "next/image";
-import {
-  NavAuthButton,
-  StartTrackingButton,
-} from "@/components/homePage/dynamicLink";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await auth();
+
   return (
     <>
       <nav className="px-10 flex items-center h-16 justify-between">
@@ -28,7 +27,7 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-center justify-center gap-2">
-          <NavAuthButton />
+          <DynamicLink variant="nav" session={session} />
         </div>
       </nav>
 
@@ -37,12 +36,8 @@ export default function HomePage() {
         <H1 className="text-brand">Watch Club</H1>
         <H3>First rule of Watch Club: Please talk about Watch Club 👉👈</H3>
 
-        <StartTrackingButton />
+        <DynamicLink variant="main" session={session} />
       </main>
-
-      <div className="fixed bottom-10 right-10">
-        <ThemeToggle />
-      </div>
     </>
   );
 }
