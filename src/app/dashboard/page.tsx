@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/lib/authentication/auth"; // or from "next-auth"
+import { auth, signOut } from "@/lib/auth"; // or from "next-auth"
 import { redirect } from "next/navigation";
 
 // Server action (must be outside JSX)

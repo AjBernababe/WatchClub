@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, RegisterType } from "@/lib/authentication/authSchema";
+import { registerSchema, RegisterType } from "@/lib/zodSchema";
 
 import {
   Card,
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import GoogleSignInBtn from "@/components/shared/googleSignInBtn";
+import GoogleSignInBtn from "@/components/auth/googleSignInBtn";
 
 export default function RegisterPage() {
   const [step, setStep] = useState<1 | 2>(1);

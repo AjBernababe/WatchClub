@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, LoginType } from "@/lib/authentication/authSchema";
+import { loginSchema, LoginType } from "@/lib/zodSchema";
 import { signIn } from "next-auth/react";
 
 import {
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import GoogleSignInBtn from "@/components/shared/googleSignInBtn";
+import GoogleSignInBtn from "@/components/auth/googleSignInBtn";
 
 async function onSubmit(values: LoginType) {
   await signIn("credentials", {
