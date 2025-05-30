@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  name     String?
-  email    String    @unique
-  password String?
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?
+  image         String?
+  emailVerified DateTime?
+
   accounts Account[]
 
-  createdAt     DateTime  @default(now())
-  emailVerified DateTime?
+  createdAt DateTime @default(now())
 }
 
 model Account {
@@ -23,6 +25,11 @@ model Account {
   type              String
   provider          String
   providerAccountId String
+  id_token          String?
+  access_token      String?
+  token_type        String?
+  scope             String?
+  expires_at        Int?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

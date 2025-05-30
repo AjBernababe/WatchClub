@@ -7,5 +7,9 @@ import bcrypt from "bcryptjs";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers: [Google, Credentials({})],
+  providers: [Google, Credentials],
+  session: { strategy: "jwt" },
+  pages: {
+    signIn: "/login",
+  },
 });
