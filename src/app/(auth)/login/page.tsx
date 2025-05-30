@@ -43,82 +43,78 @@ export default function LoginPage() {
   });
 
   return (
-    <main className="flex items-center justify-center h-screen">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Welcome to Watch Club</CardTitle>
+    <Card className="w-full max-w-md">
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl">Welcome to Watch Club</CardTitle>
 
-          <CardDescription>
-            Login with your Watch Club or Google account
-          </CardDescription>
-        </CardHeader>
+        <CardDescription>
+          Login with your Watch Club or Google account
+        </CardDescription>
+      </CardHeader>
 
-        <CardContent className="space-y-6">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Email Field */}
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Enter your registered email address.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+      <CardContent className="space-y-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Email Field */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Enter your registered email address.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              {/* Password Field */}
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="password" />
-                    </FormControl>
-                    <FormDescription>Enter your password.</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            {/* Password Field */}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="password" />
+                  </FormControl>
+                  <FormDescription>Enter your password.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              {/* Login Button */}
-              <Button
-                type="submit"
-                className="w-full cursor-pointer"
-                disabled={
-                  !form.formState.isValid || form.formState.isSubmitting
-                }
-              >
-                Login
-              </Button>
-            </form>
-          </Form>
+            {/* Login Button */}
+            <Button
+              type="submit"
+              className="w-full cursor-pointer"
+              disabled={!form.formState.isValid || form.formState.isSubmitting}
+            >
+              Login
+            </Button>
+          </form>
+        </Form>
 
-          <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-            <span className="relative z-10 bg-card px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div>
+        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+          <span className="relative z-10 bg-card px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
 
-          <GoogleSignInBtn />
+        <GoogleSignInBtn />
 
-          <div className="text-center text-sm">
-            Don't have an account?{" "}
-            <a href="/register" className="underline">
-              Sign up
-            </a>
-          </div>
-        </CardContent>
-      </Card>
-    </main>
+        <div className="text-center text-sm">
+          Don't have an account?{" "}
+          <a href="/register" className="underline">
+            Sign up
+          </a>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
