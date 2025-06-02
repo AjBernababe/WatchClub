@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, LoginType } from "@/lib/zodSchema";
+import { LoginSchema, LoginType } from "@/lib/zodSchema";
 import { signIn } from "next-auth/react";
 
 import {
@@ -38,7 +38,7 @@ async function onGoogleSignIn() {
 
 export default function LoginPage() {
   const form = useForm<LoginType>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(LoginSchema),
     mode: "onChange",
   });
 

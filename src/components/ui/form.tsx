@@ -15,6 +15,7 @@ import {
 
 import { cn } from "@/lib/cn";
 import { Label } from "@/components/ui/label";
+import { AlertCircle, CheckCircle } from "lucide-react";
 
 const Form = FormProvider;
 
@@ -156,6 +157,38 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   );
 }
 
+function FormRootMessage({ className, ...props }: React.ComponentProps<"p">) {
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  const message = errors.root?.message;
+  const type = errors.root?.type as "error" | "success";
+
+  if (!message) return null;
+
+  return (
+    <p
+      className={cn(
+        "flex items-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium shadow-sm animate-in fade-in-0 slide-in-from-top-1",
+        type === "success"
+          ? "border-green-200 bg-green-50 text-green-800 dark:border-green-800/30 dark:bg-green-950/50 dark:text-green-200"
+          : "border-red-200 bg-red-50 text-red-800 dark:border-red-800/30 dark:bg-red-950/50 dark:text-red-200",
+        className
+      )}
+      role="alert"
+      {...props}
+    >
+      {type === "success" ? (
+        <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400" />
+      ) : (
+        <AlertCircle className="h-4 w-4 text-red-500 dark:text-red-400" />
+      )}
+      {String(message)}
+    </p>
+  );
+}
+
 export {
   useFormField,
   Form,
@@ -164,5 +197,6 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
+  FormRootMessage,
   FormField,
 };
