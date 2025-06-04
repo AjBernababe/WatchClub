@@ -8,36 +8,57 @@ export default async function HomePage() {
   const session = await auth();
 
   return (
-    <>
-      <nav className="px-10 flex items-center h-16 justify-between">
-        <div>
-          <Link href="/" className="inline-block">
-            <Image
-              src="/navbarLogo.png"
-              alt="Logo"
-              width={42}
-              height={42}
-              priority
-            />
-          </Link>
-        </div>
+    <div className="min-h-screen flex flex-col">
+      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/navbarLogo.png"
+                alt="Watch Club Logo"
+                width={42}
+                height={42}
+                priority
+                className="rounded-md"
+              />
+            </Link>
 
-        <div>
-          <Muted>Work in Progress</Muted>
-        </div>
-
-        <div className="flex items-center justify-center gap-2">
-          <DynamicLink variant="nav" session={session} />
+            <div className="flex items-center">
+              <DynamicLink variant="nav" session={session} />
+            </div>
+          </div>
         </div>
       </nav>
 
-      <main className="m-20">
-        <H3>Start tracking your favorite shows with</H3>
-        <H1 className="text-brand">Watch Club</H1>
-        <H3>First rule of Watch Club: Please talk about Watch Club 👉👈</H3>
+      <main className="flex-1 flex items-center justify-center">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <div className="space-y-2">
+              <H3 className="text-muted-foreground">
+                Start tracking your favorite shows with
+              </H3>
+              <H1 className="text-brand text-4xl sm:text-5xl lg:text-6xl font-bold">
+                Watch Club
+              </H1>
+              <H3 className="text-muted-foreground max-w-2xl mx-auto">
+                First rule of Watch Club: Please talk about Watch Club 👉👈
+              </H3>
+            </div>
 
-        <DynamicLink variant="main" session={session} />
+            <DynamicLink variant="main" session={session} />
+          </div>
+        </div>
       </main>
-    </>
+
+      <footer className="border-t py-6">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="text-center">
+            <Muted className="text-xs">
+              © 2025 Watch Club. Work in progress.
+            </Muted>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }

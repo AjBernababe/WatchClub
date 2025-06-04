@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema, RegisterType } from "@/lib/zodSchema";
-import { useTransition } from "react";
+import { useTransition, useState } from "react";
 
 import {
   Card,
@@ -24,12 +24,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import GoogleSignInBtn from "@/components/auth/googleSignInBtn";
+import { GoogleSignInBtn } from "@/components/auth/googleSignInBtn";
+import { CheckCircle } from "lucide-react";
 
-import { register } from "@/actions/auth/register";
+import register from "@/actions/auth/register";
+import { displayFormError } from "@/utils/formErrors";
 
-export default function RegisterForm() {
+type RegistrationPhase = "form" | "success";
+
+export function RegisterForm() {
   const [isPending, startTransition] = useTransition();
+  const [phase, setPhase] = useState<RegistrationPhase>("form");
 
   const form = useForm<RegisterType>({
     resolver: zodResolver(RegisterSchema),
@@ -38,20 +43,18 @@ export default function RegisterForm() {
 
   const onSubmit = async (values: RegisterType) => {
     startTransition(async () => {
-      const result = await register(values);
-      if (result.message) {
-        form.setError(result.field as "email" | "root", {
-          message: result.message,
-          type: result.type,
-        });
-      }
+      const res = await register(values);
+
+      if (res) {
+        displayFormError(form, res);
+      } else setPhase("success");
     });
   };
 
   const isDisabled = isPending || !form.formState.isValid;
 
-  return (
-    <Card className="w-full max-w-md">
+  const renderFormPhase = () => (
+    <>
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Create an Account</CardTitle>
         <CardDescription>
@@ -74,7 +77,7 @@ export default function RegisterForm() {
                     <Input {...field} />
                   </FormControl>
                   <FormDescription>
-                    Enter your registered email address.
+                    Enter a valid email address.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -101,28 +104,56 @@ export default function RegisterForm() {
               className="w-full cursor-pointer"
               disabled={isDisabled}
             >
-              Create an Account
+              {isPending ? "Creating Account..." : "Create an Account"}
             </Button>
           </form>
         </Form>
 
-        <>
-          <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-            <span className="relative z-10 bg-card px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div>
+        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+          <span className="relative z-10 bg-card px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
 
-          <GoogleSignInBtn />
+        <GoogleSignInBtn form={form} />
 
-          <div className="text-center text-sm">
-            Already have an account?{" "}
-            <a href="/login" className="underline">
-              Sign in
-            </a>
-          </div>
-        </>
+        <div className="text-center text-sm">
+          Already have an account?{" "}
+          <a href="/login" className="underline">
+            Sign in
+          </a>
+        </div>
       </CardContent>
+    </>
+  );
+
+  const renderSuccessPhase = () => (
+    <>
+      <CardHeader className="text-center">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+          <CheckCircle className="h-12 w-12 text-green-600" />
+        </div>
+        <CardTitle className="text-2xl">
+          Account Created Successfully!
+        </CardTitle>
+        <CardDescription>
+          Welcome to Watch Club! Your account has been created successfully.
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent className="space-y-6">
+        <div className="text-center space-y-4">
+          <Button asChild className="w-full">
+            <a href="/login">Sign In to Your Account</a>
+          </Button>
+        </div>
+      </CardContent>
+    </>
+  );
+
+  return (
+    <Card className="w-full max-w-md">
+      {phase === "form" ? renderFormPhase() : renderSuccessPhase()}
     </Card>
   );
 }

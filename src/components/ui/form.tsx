@@ -168,24 +168,24 @@ function FormRootMessage({ className, ...props }: React.ComponentProps<"p">) {
   if (!message) return null;
 
   return (
-    <p
+    <div
       className={cn(
-        "flex items-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium shadow-sm animate-in fade-in-0 slide-in-from-top-1",
+        "flex items-center gap-2 rounded-md border px-3 py-2 text-sm animate-in fade-in-0 slide-in-from-top-1 duration-200",
         type === "success"
-          ? "border-green-200 bg-green-50 text-green-800 dark:border-green-800/30 dark:bg-green-950/50 dark:text-green-200"
-          : "border-red-200 bg-red-50 text-red-800 dark:border-red-800/30 dark:bg-red-950/50 dark:text-red-200",
+          ? "border-green-200 bg-green-50 text-green-700 dark:border-green-800/30 dark:bg-green-950/50 dark:text-green-300"
+          : "border-destructive/50 bg-destructive/10 text-destructive dark:border-destructive/50 dark:bg-destructive/10 dark:text-destructive",
         className
       )}
       role="alert"
       {...props}
     >
       {type === "success" ? (
-        <CheckCircle className="h-4 w-4 text-green-500 dark:text-green-400" />
+        <CheckCircle className="h-4 w-4 flex-shrink-0" />
       ) : (
-        <AlertCircle className="h-4 w-4 text-red-500 dark:text-red-400" />
+        <AlertCircle className="h-4 w-4 flex-shrink-0" />
       )}
-      {String(message)}
-    </p>
+      <span className="flex-1">{String(message)}</span>
+    </div>
   );
 }
 
