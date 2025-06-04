@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { GoogleSignInBtn } from "@/components/auth/googleSignInBtn";
+import { TextWithSpinner } from "@/components/ui/textWithSpinner";
 
 import login from "@/actions/auth/login";
 import { displayFormError } from "@/utils/formErrors";
@@ -100,7 +101,11 @@ export function LoginForm() {
               className="w-full cursor-pointer"
               disabled={isDisabled}
             >
-              {isPending ? "Logging In..." : "Log In"}
+              {isPending ? (
+                <TextWithSpinner>Logging in</TextWithSpinner>
+              ) : (
+                "Log In"
+              )}
             </Button>
           </form>
         </Form>

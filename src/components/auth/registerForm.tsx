@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { GoogleSignInBtn } from "@/components/auth/googleSignInBtn";
 import { CheckCircle } from "lucide-react";
+import { TextWithSpinner } from "@/components/ui/textWithSpinner";
 
 import register from "@/actions/auth/register";
 import { displayFormError } from "@/utils/formErrors";
@@ -104,7 +105,11 @@ export function RegisterForm() {
               className="w-full cursor-pointer"
               disabled={isDisabled}
             >
-              {isPending ? "Creating Account..." : "Create an Account"}
+              {isPending ? (
+                <TextWithSpinner>Creating Account</TextWithSpinner>
+              ) : (
+                "Create an Account"
+              )}
             </Button>
           </form>
         </Form>
