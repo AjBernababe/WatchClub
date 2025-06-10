@@ -27,7 +27,7 @@ export function GoogleSignInBtn({ form }: GoogleSignInBtnProps) {
   return (
     <Button
       variant="outline"
-      className="w-full cursor-pointer"
+      className="w-full"
       onClick={handleGoogleSignIn}
       disabled={isPending}
     >

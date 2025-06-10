@@ -100,11 +100,7 @@ export function RegisterForm() {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full cursor-pointer"
-              disabled={isDisabled}
-            >
+            <Button type="submit" className="w-full" disabled={isDisabled}>
               {isPending ? (
                 <TextWithSpinner>Creating Account</TextWithSpinner>
               ) : (

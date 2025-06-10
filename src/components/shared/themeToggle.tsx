@@ -19,7 +19,7 @@ export function ThemeToggle() {
 
   return (
     <Button
-      className="cursor-pointer rounded-full h-12 w-12"
+      className="rounded-full h-12 w-12"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       {isDark ? <Sun /> : <Moon />}

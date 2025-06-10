@@ -96,11 +96,7 @@ export function LoginForm() {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full cursor-pointer"
-              disabled={isDisabled}
-            >
+            <Button type="submit" className="w-full" disabled={isDisabled}>
               {isPending ? (
                 <TextWithSpinner>Logging in</TextWithSpinner>
               ) : (

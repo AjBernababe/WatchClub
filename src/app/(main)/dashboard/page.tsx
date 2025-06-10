@@ -12,13 +12,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <main>
-      <h1>Dashboard</h1>
-      <h3>Welcome {session?.user?.email}</h3>
-
-      <Button onClick={handleSignOut} className="cursor-pointer">
-        Sign Out
-      </Button>
-    </main>
+    <>
+      <Button onClick={handleSignOut}>Sign Out</Button>
+    </>
   );
 }
