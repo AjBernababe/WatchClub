@@ -44,4 +44,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
   },
+
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnAuth =
+        nextUrl.pathname === "/login" || nextUrl.pathname === "/register";
+      const isOnPublic = nextUrl.pathname === "/";
+
+      if (isLoggedIn && isOnAuth) {
+        return Response.redirect(new URL("/dashboard", nextUrl));
+      }
+
+      if (!isLoggedIn && !isOnPublic && !isOnAuth) {
+        return false;
+      }
+
+      return true;
+    },
+  },
 });
