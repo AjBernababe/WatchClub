@@ -11,8 +11,8 @@ export default async function ProtectedLayout({
     <SidebarProvider>
       <AppSidebar />
       <div className="w-full">
-        <AppHeader title="Dashboard" />
-        <main className="flex justify-center">{children}</main>
+        <AppHeader />
+        <main className="flex justify-center p-5">{children}</main>
       </div>
     </SidebarProvider>
   );

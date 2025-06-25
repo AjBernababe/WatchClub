@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function notFoundPage() {
+export default function NotFoundPage() {
   return (
     <main className="flex items-center min-h-screen px-4 py-12 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div className="w-full space-y-6 text-center">
