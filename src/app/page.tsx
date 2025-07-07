@@ -30,7 +30,7 @@ export default async function HomePage() {
         </div>
       </nav>
 
-      <main className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <div className="space-y-2">
@@ -48,7 +48,7 @@ export default async function HomePage() {
             <DynamicLink variant="main" session={session} />
           </div>
         </div>
-      </main>
+      </div>
 
       <footer className="border-t py-6">
         <div className="container mx-auto px-6 lg:px-8">

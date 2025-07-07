@@ -4,8 +4,6 @@ export default async function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="flex items-center justify-center h-screen">
-      {children}
-    </main>
+    <div className="flex items-center justify-center h-screen">{children}</div>
   );
 }
