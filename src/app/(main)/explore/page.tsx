@@ -1,3 +1,11 @@
+import { SearchBar } from "@/components/explorePage/searchBar";
+import { TmdbExplore } from "@/components/explorePage/tmdbExplore";
+
 export default function ExplorePage() {
-  return <h1>Explore</h1>;
+  return (
+    <>
+      <SearchBar />
+      <TmdbExplore />
+    </>
+  );
 }
