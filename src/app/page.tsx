@@ -15,7 +15,7 @@ export default async function HomePage() {
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/navbarLogo.png"
-                alt="Watch Club Logo"
+                alt="WatchClub Logo"
                 width={42}
                 height={42}
                 priority
@@ -38,10 +38,10 @@ export default async function HomePage() {
                 Start tracking your favorite shows with
               </H3>
               <H1 className="text-brand text-4xl sm:text-5xl lg:text-6xl font-bold">
-                Watch Club
+                WatchClub
               </H1>
               <H3 className="text-muted-foreground max-w-2xl mx-auto">
-                First rule of Watch Club: Please talk about Watch Club 👉👈
+                First rule of WatchClub: Please talk about WatchClub 👉👈
               </H3>
             </div>
 
@@ -54,7 +54,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center">
             <Muted className="text-xs">
-              © 2025 Watch Club. Work in progress.
+              © 2025 WatchClub. Work in progress.
             </Muted>
           </div>
         </div>

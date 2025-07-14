@@ -53,7 +53,7 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl">Welcome to Watch Club</CardTitle>
+        <CardTitle className="text-2xl">Welcome to WatchClub</CardTitle>
         <CardDescription>
           Login to your account or sign up with Google to get started.
         </CardDescription>

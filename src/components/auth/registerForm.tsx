@@ -59,7 +59,7 @@ export function RegisterForm() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Create an Account</CardTitle>
         <CardDescription>
-          Create your Watch Club account or sign up with Google to get started.
+          Create your WatchClub account or sign up with Google to get started.
         </CardDescription>
       </CardHeader>
 
@@ -138,7 +138,7 @@ export function RegisterForm() {
           Account Created Successfully!
         </CardTitle>
         <CardDescription>
-          Welcome to Watch Club! Your account has been created successfully.
+          Welcome to WatchClub! Your account has been created successfully.
         </CardDescription>
       </CardHeader>
 

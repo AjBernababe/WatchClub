@@ -7,7 +7,7 @@ import { ThemeToggle } from "@/components/shared/themeToggle";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Watch Club",
+  title: "WatchClub",
 };
 
 export default function RootLayout({
