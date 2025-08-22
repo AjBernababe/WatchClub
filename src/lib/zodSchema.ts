@@ -2,7 +2,7 @@ import { z } from "zod";
 
 //#region Registration schema
 export const RegisterSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email format"),
+  email: z.email("Invalid email format"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 export type RegisterType = z.infer<typeof RegisterSchema>;
@@ -10,7 +10,7 @@ export type RegisterType = z.infer<typeof RegisterSchema>;
 
 //#region Login schema
 export const LoginSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email format"),
+  email: z.email("Invalid email format"),
   password: z.string().min(1, "Password is required"),
 });
 export type LoginType = z.infer<typeof LoginSchema>;
