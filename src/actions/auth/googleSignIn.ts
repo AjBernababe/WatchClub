@@ -8,7 +8,6 @@ export default async function googleSignIn() {
   try {
     await signIn("google");
   } catch (error) {
-    // console.log(error);
     throwRedirectError(error);
 
     return FormErrorTypes.SOMETHING_WENT_WRONG;
