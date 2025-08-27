@@ -62,5 +62,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return true;
     },
+
+    async redirect({ url, baseUrl }) {
+      if (
+        url === `${baseUrl}/login` ||
+        url === `${baseUrl}/register` ||
+        url === baseUrl
+      ) {
+        return `${baseUrl}/dashboard`;
+      }
+
+      return `${baseUrl}/dashboard`;
+    },
   },
 });
