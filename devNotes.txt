@@ -1,0 +1,11 @@
+itemCard Schema
+Title
+Score
+Type: movie or tv
+year
+poster
+
+limitations:
+Search api can only return max 20 items per page
+There might be inconsistencies in number of items per page as TV and Movies are only getting filtered in
+Currently, explore page resets every refresh and does not follow URL

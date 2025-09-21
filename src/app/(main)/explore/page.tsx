@@ -1,5 +1,5 @@
-import TMDBSearchbar from "@/components/explorePage/tmdbSearchBar";
+import ExploreMain from "@/components/explorePage/exploreMain";
 
 export default function ExplorePage() {
-  return <TMDBSearchbar />;
+  return <ExploreMain />;
 }
