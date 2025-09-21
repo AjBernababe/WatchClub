@@ -3,7 +3,5 @@
 import { signOut } from "@/lib/auth";
 
 export default async function logout() {
-  await signOut({
-    redirectTo: "/",
-  });
+  await signOut();
 }

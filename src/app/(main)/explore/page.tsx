@@ -1,12 +1,5 @@
-import { SearchBar } from "@/components/explorePage/searchBar";
-import { TmdbExplore } from "@/components/explorePage/tmdbExplore";
-import { Suspense } from "react";
+import ExploreMain from "@/components/explorePage/exploreMain";
 
 export default function ExplorePage() {
-  return (
-    <Suspense fallback={<div>Loading…</div>}>
-      <SearchBar />
-      <TmdbExplore />
-    </Suspense>
-  );
+  return <ExploreMain />;
 }

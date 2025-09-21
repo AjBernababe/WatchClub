@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Home,
@@ -21,6 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { LogoutBtn } from "../auth/logoutBtn";
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -60,7 +62,16 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader>TEST</SidebarHeader>
+      <SidebarHeader>
+        <div className="flex items-center gap-2 px-2 py-2">
+          <Image
+            src="/navbarLogo.png"
+            alt="WatchClub Logo"
+            width={32}
+            height={32}
+          />
+        </div>
+      </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
@@ -81,7 +92,9 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>TEST</SidebarFooter>
+      <SidebarFooter>
+        <LogoutBtn />
+      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -16,7 +16,6 @@ export default async function login(data: LoginType) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/dashboard",
     });
   } catch (error) {
     throwRedirectError(error);
