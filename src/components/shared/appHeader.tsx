@@ -9,12 +9,6 @@ const getTitle = (path: string) => {
       return "Dashboard";
     case "/watchlist":
       return "Watchlist";
-    case "/watching":
-      return "Watching";
-    case "/completed":
-      return "Completed";
-    case "/dropped":
-      return "Dropped";
     case "/explore":
       return "Explore";
   }

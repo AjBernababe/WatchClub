@@ -15,13 +15,13 @@ model User {
   image         String?
   emailVerified DateTime?
 
-  accounts Account[]
+  accounts  Account[]
+  tmdbItems TMDBItem[]
 
   createdAt DateTime @default(now())
 }
 
 model Account {
-  userId            String
   type              String
   provider          String
   providerAccountId String
@@ -31,7 +31,21 @@ model Account {
   scope             String?
   expires_at        Int?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 
   @@id([provider, providerAccountId])
+}
+
+model TMDBItem {
+  id     Int    @id @default(autoincrement())
+  tmdbId Int
+  title  String
+  image  String
+  type   String
+  year   String
+  rating String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }

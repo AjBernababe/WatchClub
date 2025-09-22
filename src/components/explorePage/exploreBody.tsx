@@ -23,7 +23,7 @@ export default function ExploreBody({ items, isLoading }: ExploreBodyProps) {
           ) : (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,200px))] gap-5 justify-center">
               {items?.map((item: any) => (
-                <TMDBItemCard key={item.id} {...item} />
+                <TMDBItemCard key={item.tmdbId} {...item} />
               ))}
             </div>
           )}

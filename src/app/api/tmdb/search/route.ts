@@ -38,8 +38,6 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
-
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

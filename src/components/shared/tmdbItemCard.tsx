@@ -4,19 +4,36 @@ import type { TMDBItem } from "@/lib/tmdb";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Star } from "lucide-react";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { Heart, Star, Check } from "lucide-react";
+import { toast } from "sonner";
+import addToWatchlist from "@/actions/main/addToWatchlist";
 
 export function TMDBItemCard({
-  id,
+  tmdbId,
   title,
   image,
   type,
   rating,
   year,
 }: TMDBItem) {
+  const handleAddToWatchlist = async () => {
+    await addToWatchlist({ tmdbId, title, image, type, rating, year });
+
+    toast.success("Successfully added to watchlist", {
+      icon: <Check className="w-5 h-5" />,
+      duration: 2000,
+      closeButton: true,
+    });
+  };
+
   return (
     <Card className="w-[200px] h-[300px] overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 p-0 flex flex-col">
-      <div id={`${id}`} className="relative flex-1">
+      <div id={`${tmdbId}`} className="relative flex-1">
         <Image
           src={image || "/placeholder.svg"}
           alt={title}
@@ -50,6 +67,20 @@ export function TMDBItemCard({
           <p className="text-sm opacity-95 drop-shadow-lg [text-shadow:_0_1px_2px_rgb(0_0_0_/_60%)]">
             {year}
           </p>
+        </div>
+
+        <div className="absolute bottom-0 right-0 p-4 text-white">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="cursor-pointer transition-colors duration-300 hover:text-white"
+                onClick={handleAddToWatchlist}
+              >
+                <Heart className="w-7 h-7 hover:fill-current" />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>Add to Watchlist</TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </Card>

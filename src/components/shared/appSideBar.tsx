@@ -36,22 +36,7 @@ export function AppSidebar() {
     {
       title: "Watchlist",
       url: "/watchlist",
-      icon: Clock,
-    },
-    {
-      title: "Watching",
-      url: "/watching",
       icon: TvMinimalPlay,
-    },
-    {
-      title: "Completed",
-      url: "/completed",
-      icon: CircleCheckBig,
-    },
-    {
-      title: "Dropped",
-      url: "/dropped",
-      icon: Trash,
     },
     {
       title: "Explore",

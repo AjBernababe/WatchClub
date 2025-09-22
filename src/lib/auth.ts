@@ -46,6 +46,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   callbacks: {
+    async jwt({ token, user, account }) {
+      if (account?.provider === "google") {
+        token.id = token.sub;
+      } else if (user?.id) {
+        token.id = user.id;
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user.id = token.id as string;
+
+      return session;
+    },
+
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnAuth =
