@@ -9,9 +9,7 @@ type ExploreSearchbarProps = {
   handleTMDBSearch: (searchQuery: string) => void;
 };
 
-export default function ExploreSearchbar({
-  handleTMDBSearch,
-}: ExploreSearchbarProps) {
+export function ExploreSearchbar({ handleTMDBSearch }: ExploreSearchbarProps) {
   const form = useForm();
 
   const onSubmit = async (data: any) => {

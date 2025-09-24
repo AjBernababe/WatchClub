@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import ExploreBody from "./exploreBody";
-import ExplorePagination from "./explorePagination";
-import ExploreSearchbar from "./exploreSearchbar";
+import { ExploreBody } from "./exploreBody";
+import { ExplorePagination } from "./explorePagination";
+import { ExploreSearchbar } from "./exploreSearchbar";
 import { TMDBSearchResponse } from "@/lib/tmdb";
 
-export default function ExploreMain() {
+export function ExploreMain() {
   const [searchResults, setSearchResults] = useState<TMDBSearchResponse>();
   const [currentSearchQuery, setCurrentSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);

@@ -16,7 +16,7 @@ type ExplorePaginationProps = {
   handleTMDBSearch: (searchQuery: string, page: number) => Promise<void>;
 };
 
-export default function ExplorePagination({
+export function ExplorePagination({
   page,
   pageCount,
   searchQuery,

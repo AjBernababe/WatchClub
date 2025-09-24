@@ -15,8 +15,8 @@ model User {
   image         String?
   emailVerified DateTime?
 
-  accounts  Account[]
-  tmdbItems TMDBItem[]
+  accounts       Account[]
+  watchlistItems WatchlistItem[]
 
   createdAt DateTime @default(now())
 }
@@ -37,15 +37,30 @@ model Account {
   @@id([provider, providerAccountId])
 }
 
-model TMDBItem {
-  id     Int    @id @default(autoincrement())
-  tmdbId Int
+model WatchlistItem {
+  id     String    @id @default(cuid())
+  tmdbId String
   title  String
   image  String
-  type   String
+  type   MediaType
   year   String
   rating String
+  status Status
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+
+  createdAt DateTime @default(now())
+}
+
+enum MediaType {
+  Movie
+  TV
+}
+
+enum Status {
+  To_Watch
+  Watching
+  Completed
+  Dropped
 }

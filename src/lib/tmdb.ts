@@ -2,18 +2,18 @@ export const API_KEY = process.env.TMDB_API_KEY;
 
 export const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
-export type TMDBItem = {
-  tmdbId: number;
+export interface TMDBItem {
+  tmdbId: string;
   title: string;
   image: string;
   type: "TV" | "Movie";
   year: string;
   rating: string;
-};
+}
 
 export function mapTMDBItem(item: any): TMDBItem {
   return {
-    tmdbId: item.id,
+    tmdbId: item.id.toString(),
     title: item.title || item.name,
     image: item.poster_path
       ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
@@ -25,8 +25,8 @@ export function mapTMDBItem(item: any): TMDBItem {
   };
 }
 
-export type TMDBSearchResponse = {
+export interface TMDBSearchResponse {
   items: TMDBItem[];
   page: number;
   total_pages: number;
-};
+}

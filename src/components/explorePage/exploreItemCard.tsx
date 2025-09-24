@@ -13,7 +13,7 @@ import { Heart, Star, Check } from "lucide-react";
 import { toast } from "sonner";
 import addToWatchlist from "@/actions/main/addToWatchlist";
 
-export function TMDBItemCard({
+export function ExploreItemCard({
   tmdbId,
   title,
   image,

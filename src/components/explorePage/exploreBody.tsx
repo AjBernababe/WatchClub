@@ -2,14 +2,14 @@
 
 import type { TMDBItem } from "@/lib/tmdb";
 import { Spinner } from "../ui/spinner";
-import { TMDBItemCard } from "../shared/tmdbItemCard";
+import { ExploreItemCard } from "./exploreItemCard";
 
 type ExploreBodyProps = {
   items: TMDBItem[];
   isLoading: boolean;
 };
 
-export default function ExploreBody({ items, isLoading }: ExploreBodyProps) {
+export function ExploreBody({ items, isLoading }: ExploreBodyProps) {
   return (
     <>
       {isLoading ? (
@@ -23,7 +23,7 @@ export default function ExploreBody({ items, isLoading }: ExploreBodyProps) {
           ) : (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,200px))] gap-5 justify-center">
               {items?.map((item: any) => (
-                <TMDBItemCard key={item.tmdbId} {...item} />
+                <ExploreItemCard key={item.tmdbId} {...item} />
               ))}
             </div>
           )}
