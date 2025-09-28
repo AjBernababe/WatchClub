@@ -13,16 +13,9 @@ import { Heart, Star, Check } from "lucide-react";
 import { toast } from "sonner";
 import addToWatchlist from "@/actions/main/addToWatchlist";
 
-export function ExploreItemCard({
-  tmdbId,
-  title,
-  image,
-  type,
-  rating,
-  year,
-}: TMDBItem) {
+export function ExploreItemCard({ tmdbItem }: { tmdbItem: TMDBItem }) {
   const handleAddToWatchlist = async () => {
-    await addToWatchlist({ tmdbId, title, image, type, rating, year });
+    await addToWatchlist(tmdbItem);
 
     toast.success("Successfully added to watchlist", {
       icon: <Check className="w-5 h-5" />,
@@ -30,6 +23,8 @@ export function ExploreItemCard({
       closeButton: true,
     });
   };
+
+  const { tmdbId, title, image, type, rating, year } = tmdbItem;
 
   return (
     <Card className="w-[200px] h-[300px] overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 p-0 flex flex-col">

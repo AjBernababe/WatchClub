@@ -10,10 +10,12 @@ export function ExploreMain() {
   const [searchResults, setSearchResults] = useState<TMDBSearchResponse>();
   const [currentSearchQuery, setCurrentSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleTMDBSearch = async (searchQuery: string, page: number = 1) => {
     setCurrentSearchQuery(searchQuery);
     setIsLoading(true);
+    setHasSearched(true);
 
     try {
       const response = await fetch(
@@ -36,22 +38,19 @@ export function ExploreMain() {
     <div className="flex flex-col gap-5">
       <ExploreSearchbar handleTMDBSearch={handleTMDBSearch} />
 
-      {searchResults && (
-        <>
-          <ExploreBody
-            items={searchResults.items || []}
-            isLoading={isLoading}
-          />
+      <ExploreBody
+        items={searchResults?.items || []}
+        isLoading={isLoading}
+        hasSearched={hasSearched}
+      />
 
-          {searchResults.items.length !== 0 && !isLoading && (
-            <ExplorePagination
-              page={searchResults.page}
-              pageCount={searchResults.total_pages}
-              searchQuery={currentSearchQuery}
-              handleTMDBSearch={handleTMDBSearch}
-            />
-          )}
-        </>
+      {searchResults && searchResults.items.length !== 0 && !isLoading && (
+        <ExplorePagination
+          page={searchResults.page}
+          pageCount={searchResults.total_pages}
+          searchQuery={currentSearchQuery}
+          handleTMDBSearch={handleTMDBSearch}
+        />
       )}
     </div>
   );

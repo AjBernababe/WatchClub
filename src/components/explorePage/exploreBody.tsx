@@ -7,9 +7,14 @@ import { ExploreItemCard } from "./exploreItemCard";
 type ExploreBodyProps = {
   items: TMDBItem[];
   isLoading: boolean;
+  hasSearched: boolean;
 };
 
-export function ExploreBody({ items, isLoading }: ExploreBodyProps) {
+export function ExploreBody({
+  items,
+  isLoading,
+  hasSearched,
+}: ExploreBodyProps) {
   return (
     <>
       {isLoading ? (
@@ -18,15 +23,15 @@ export function ExploreBody({ items, isLoading }: ExploreBodyProps) {
         </div>
       ) : (
         <>
-          {items.length === 0 ? (
+          {items.length === 0 && hasSearched ? (
             <div className="text-center text-gray-500">No results found</div>
-          ) : (
+          ) : items.length > 0 ? (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,200px))] gap-5 justify-center">
-              {items?.map((item: any) => (
-                <ExploreItemCard key={item.tmdbId} {...item} />
+              {items?.map((item: TMDBItem) => (
+                <ExploreItemCard key={item.tmdbId} tmdbItem={item} />
               ))}
             </div>
-          )}
+          ) : null}
         </>
       )}
     </>
