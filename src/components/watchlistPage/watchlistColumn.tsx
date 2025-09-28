@@ -22,7 +22,7 @@ export function WatchlistColumn({
         <CardTitle>{watchlistColumn.title}</CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-2">
+      <CardContent className="flex flex-col gap-2 h-full overflow-y-auto">
         {watchlistItems.map((item) => (
           <WatchlistItemCard key={item.id} watchlistItem={item} />
         ))}

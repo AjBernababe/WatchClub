@@ -19,7 +19,7 @@ export function WatchlistItemCard({ watchlistItem }: WatchlistItemCardProps) {
   return (
     <Card
       ref={ref}
-      className="p-0 overflow-hidden h-[110px] group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+      className="p-0 overflow-hidden min-h-[110px] group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
     >
       <div className="flex h-full">
         <div className="relative w-[80px] flex-shrink-0">
