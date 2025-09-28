@@ -24,7 +24,7 @@ export function ExploreBody({
       ) : (
         <>
           {items.length === 0 && hasSearched ? (
-            <div className="text-center text-gray-500">No results found</div>
+            <div className="text-center">No results found</div>
           ) : items.length > 0 ? (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,200px))] gap-5 justify-center">
               {items?.map((item: TMDBItem) => (
