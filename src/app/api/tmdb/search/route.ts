@@ -9,35 +9,54 @@ import {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const searchQuery = searchParams.get("searchQuery") || "";
+    const searchQuery = (searchParams.get("searchQuery") || "").trim();
     const page = searchParams.get("page") || "1";
 
-    const url = `${TMDB_BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(
-      searchQuery
-    )}&page=${page}`;
+    const q = encodeURIComponent(searchQuery);
+    const movieUrl = `${TMDB_BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${q}&page=${page}&include_adult=false`;
+    const tvUrl = `${TMDB_BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&query=${q}&page=${page}&include_adult=false`;
 
-    const res = await fetch(url);
+    const [movieRes, tvRes] = await Promise.all([
+      fetch(movieUrl),
+      fetch(tvUrl),
+    ]);
 
-    if (!res.ok) {
+    if (!movieRes.ok || !tvRes.ok) {
       throw new Error("Failed to fetch data from TMDB");
     }
 
-    const data = await res.json();
+    const [movieData, tvData] = await Promise.all([
+      movieRes.json(),
+      tvRes.json(),
+    ]);
 
-    const results = data.results.filter(
-      (item: { media_type: string }) =>
-        item.media_type === "movie" || item.media_type === "tv"
+    const movies = (movieData.results || []).map((r: any) => ({
+      ...r,
+      media_type: "movie",
+    }));
+    const tvShows = (tvData.results || []).map((r: any) => ({
+      ...r,
+      media_type: "tv",
+    }));
+
+    const combined = [...movies, ...tvShows]
+      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .map(mapTMDBItem);
+
+    const total_pages = Math.max(
+      Number(movieData.total_pages || 0),
+      Number(tvData.total_pages || 0)
     );
 
-    return NextResponse.json(
-      {
-        items: results.map(mapTMDBItem),
-        page: data.page,
-        total_pages: data.total_pages,
-      } as TMDBSearchResponse,
-      { status: 200 }
-    );
+    const response: TMDBSearchResponse = {
+      items: combined,
+      page: Number(page),
+      total_pages,
+    };
+
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
+    console.error("TMDB search error:", error);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
