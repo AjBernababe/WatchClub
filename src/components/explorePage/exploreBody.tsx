@@ -1,6 +1,6 @@
 "use client";
 
-import type { TMDBItem } from "@/lib/tmdb";
+import { TMDBItem } from "@/lib/tmdb";
 import { Spinner } from "../ui/spinner";
 import { ExploreItemCard } from "./exploreItemCard";
 

@@ -13,8 +13,8 @@ export async function GET(request: NextRequest) {
     const page = searchParams.get("page") || "1";
 
     const q = encodeURIComponent(searchQuery);
-    const movieUrl = `${TMDB_BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${q}&page=${page}&include_adult=false`;
-    const tvUrl = `${TMDB_BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&query=${q}&page=${page}&include_adult=false`;
+    const movieUrl = `${TMDB_BASE_URL}/search/movie?api_key=${API_KEY}&query=${q}&page=${page}`;
+    const tvUrl = `${TMDB_BASE_URL}/search/tv?api_key=${API_KEY}&query=${q}&page=${page}`;
 
     const [movieRes, tvRes] = await Promise.all([
       fetch(movieUrl),
@@ -56,7 +56,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    console.error("TMDB search error:", error);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

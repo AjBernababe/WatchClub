@@ -38,14 +38,17 @@ model Account {
 }
 
 model WatchlistItem {
-  id     String    @id @default(cuid())
-  tmdbId String
-  title  String
-  image  String
-  type   MediaType
-  year   String
-  rating String
-  status Status
+  id            String    @id @default(cuid())
+  tmdbId        String
+  title         String
+  image         String
+  type          MediaType
+  year          String
+  rating        String
+  status        Status
+  overview      String
+  genres        String[]
+  backdropImage String
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
