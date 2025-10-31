@@ -8,12 +8,18 @@ type ExploreBodyProps = {
   items: TMDBItem[];
   isLoading: boolean;
   hasSearched: boolean;
+  watchlistIds: Set<string>;
+  onAddToWatchlist: (tmdbId: string) => void;
+  onRemoveFromWatchlist: (tmdbId: string) => void;
 };
 
 export function ExploreBody({
   items,
   isLoading,
   hasSearched,
+  watchlistIds,
+  onAddToWatchlist,
+  onRemoveFromWatchlist,
 }: ExploreBodyProps) {
   return (
     <>
@@ -28,7 +34,13 @@ export function ExploreBody({
           ) : items.length > 0 ? (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,200px))] gap-5 justify-center">
               {items?.map((item: TMDBItem) => (
-                <ExploreItemCard key={item.tmdbId} tmdbItem={item} />
+                <ExploreItemCard
+                  key={item.tmdbId}
+                  tmdbItem={item}
+                  isInWatchlist={watchlistIds.has(item.tmdbId)}
+                  onAddToWatchlist={onAddToWatchlist}
+                  onRemoveFromWatchlist={onRemoveFromWatchlist}
+                />
               ))}
             </div>
           ) : null}

@@ -6,20 +6,32 @@ import { WatchlistColumn } from "./watchlistColumn";
 import updateWatchlistItemStatus from "@/actions/main/updateWatchlistItemStatus";
 import type { WatchlistItem, Status } from "@prisma/client";
 
-const COLUMNS = [
-  { id: "To_Watch", title: "To Watch" },
-  { id: "Watching", title: "Watching" },
-  { id: "Completed", title: "Completed" },
-  { id: "Dropped", title: "Dropped" },
-];
-
 type WatchlistMainProps = {
   watchlistData: WatchlistItem[];
 };
 
+const COLUMNS = [
+  { id: "To_Watch" as Status, title: "To Watch" },
+  { id: "Watching" as Status, title: "Watching" },
+  { id: "Completed" as Status, title: "Completed" },
+  { id: "Dropped" as Status, title: "Dropped" },
+];
+
 export function WatchlistMain({ watchlistData }: WatchlistMainProps) {
   const [watchlistItems, setWatchlistItems] =
     useState<WatchlistItem[]>(watchlistData);
+
+  const handleStatusChange = (itemId: string, newStatus: Status) => {
+    setWatchlistItems((items) =>
+      items.map((item) =>
+        item.id === itemId ? { ...item, status: newStatus } : item
+      )
+    );
+  };
+
+  const handleRemoveFromWatchlist = (itemId: string) => {
+    setWatchlistItems((items) => items.filter((item) => item.id !== itemId));
+  };
 
   const handleDragEnd = async ({ operation }: any) => {
     const { source, target } = operation;
@@ -49,6 +61,8 @@ export function WatchlistMain({ watchlistData }: WatchlistMainProps) {
             watchlistItems={watchlistItems.filter(
               (item) => item.status === column.id
             )}
+            onStatusChange={handleStatusChange}
+            onRemoveFromWatchlist={handleRemoveFromWatchlist}
           />
         ))}
       </DragDropProvider>

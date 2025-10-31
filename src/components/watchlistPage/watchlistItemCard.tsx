@@ -5,20 +5,31 @@ import { Card } from "../ui/card";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Star } from "lucide-react";
-import type { WatchlistItem } from "@prisma/client";
+import type { WatchlistItem, Status } from "@prisma/client";
 import { ItemDetailsDialog } from "../shared/itemDetailsDialog";
 
 type WatchlistItemCardProps = {
   watchlistItem: WatchlistItem;
+  onStatusChange?: (itemId: string, newStatus: Status) => void;
+  onRemoveFromWatchlist?: (itemId: string) => void;
 };
 
-export function WatchlistItemCard({ watchlistItem }: WatchlistItemCardProps) {
+export function WatchlistItemCard({
+  watchlistItem,
+  onStatusChange,
+  onRemoveFromWatchlist,
+}: WatchlistItemCardProps) {
   const { ref } = useDraggable({
     id: watchlistItem.id,
   });
 
   return (
-    <ItemDetailsDialog item={watchlistItem}>
+    <ItemDetailsDialog
+      item={watchlistItem}
+      variant="watchlist"
+      onStatusChange={onStatusChange}
+      onRemoveFromWatchlist={onRemoveFromWatchlist}
+    >
       <Card
         ref={ref}
         className="p-0 overflow-hidden min-h-[110px] group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"

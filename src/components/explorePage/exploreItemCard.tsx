@@ -9,26 +9,79 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
-import { Heart, Star, Check } from "lucide-react";
-import { toast } from "sonner";
+import { Heart, Star } from "lucide-react";
 import addToWatchlist from "@/actions/main/addToWatchlist";
+import removeFromWatchlist from "@/actions/main/removeFromWatchlist";
 import { ItemDetailsDialog } from "../shared/itemDetailsDialog";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Check, X } from "lucide-react";
 
-export function ExploreItemCard({ tmdbItem }: { tmdbItem: TMDBItem }) {
-  const handleAddToWatchlist = async () => {
-    await addToWatchlist(tmdbItem);
+type ExploreItemCardProps = {
+  /** The TMDB item to display */
+  tmdbItem: TMDBItem;
+  /** Whether the item is already in the watchlist */
+  isInWatchlist: boolean;
+  /** Callback when item is added to watchlist */
+  onAddToWatchlist: (tmdbId: string) => void;
+  /** Callback when item is removed from watchlist */
+  onRemoveFromWatchlist: (tmdbId: string) => void;
+};
 
-    toast.success("Successfully added to watchlist", {
-      icon: <Check className="w-5 h-5" />,
-      duration: 2000,
-      closeButton: true,
-    });
+/**
+ * Card component for displaying a movie/TV show in the explore page
+ * Supports adding/removing from watchlist with optimistic UI updates
+ */
+export function ExploreItemCard({
+  tmdbItem,
+  isInWatchlist,
+  onAddToWatchlist,
+  onRemoveFromWatchlist,
+}: ExploreItemCardProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToggleWatchlist = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent dialog from opening
+
+    if (isLoading) return; // Prevent double-clicks
+
+    setIsLoading(true);
+
+    try {
+      if (isInWatchlist) {
+        await removeFromWatchlist(tmdbItem.tmdbId);
+        onRemoveFromWatchlist(tmdbItem.tmdbId);
+        toast.success("Removed from watchlist", {
+          icon: <Check className="w-5 h-5" />,
+          duration: 2000,
+        });
+      } else {
+        await addToWatchlist(tmdbItem);
+        onAddToWatchlist(tmdbItem.tmdbId);
+        toast.success("Added to watchlist", {
+          icon: <Check className="w-5 h-5" />,
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong", {
+        icon: <X className="w-5 h-5" />,
+        duration: 2000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const { tmdbId, title, image, type, rating, year } = tmdbItem;
 
   return (
-    <ItemDetailsDialog item={tmdbItem}>
+    <ItemDetailsDialog
+      item={tmdbItem}
+      variant="explore"
+      isInWatchlist={isInWatchlist}
+      onToggleWatchlist={handleToggleWatchlist}
+    >
       <Card className="w-[200px] h-[300px] overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 p-0 flex flex-col">
         <div id={`${tmdbId}`} className="relative flex-1">
           <Image
@@ -69,17 +122,21 @@ export function ExploreItemCard({ tmdbItem }: { tmdbItem: TMDBItem }) {
           <div className="absolute bottom-0 right-0 p-4 text-white">
             <Tooltip>
               <TooltipTrigger asChild>
-                <div
-                  className="cursor-pointer transition-colors duration-300 hover:text-white"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent dialog from opening
-                    handleAddToWatchlist();
-                  }}
+                <button
+                  className="cursor-pointer transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed text-white"
+                  onClick={handleToggleWatchlist}
+                  disabled={isLoading}
                 >
-                  <Heart className="w-7 h-7 hover:fill-current" />
-                </div>
+                  <Heart
+                    className={`w-7 h-7 transition-all ${
+                      isInWatchlist ? "fill-current" : ""
+                    }`}
+                  />
+                </button>
               </TooltipTrigger>
-              <TooltipContent>Add to Watchlist</TooltipContent>
+              <TooltipContent>
+                {isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+              </TooltipContent>
             </Tooltip>
           </div>
         </div>

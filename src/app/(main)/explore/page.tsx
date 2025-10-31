@@ -1,5 +1,8 @@
 import { ExploreMain } from "@/components/explorePage/exploreMain";
+import fetchWatchlistIds from "@/actions/main/fetchWatchlistIds";
 
-export default function ExplorePage() {
-  return <ExploreMain />;
+export default async function ExplorePage() {
+  const watchlistIds = await fetchWatchlistIds();
+
+  return <ExploreMain watchlistIds={watchlistIds} />;
 }

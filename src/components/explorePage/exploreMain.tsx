@@ -6,11 +6,17 @@ import { ExplorePagination } from "./explorePagination";
 import { ExploreSearchbar } from "./exploreSearchbar";
 import { TMDBSearchResponse } from "@/lib/tmdb";
 
-export function ExploreMain() {
+type ExploreMainProps = {
+  watchlistIds: Set<string>;
+};
+
+export function ExploreMain({ watchlistIds }: ExploreMainProps) {
   const [searchResults, setSearchResults] = useState<TMDBSearchResponse>();
   const [currentSearchQuery, setCurrentSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [localWatchlistIds, setLocalWatchlistIds] =
+    useState<Set<string>>(watchlistIds);
 
   const handleTMDBSearch = async (searchQuery: string, page: number = 1) => {
     setCurrentSearchQuery(searchQuery);
@@ -34,6 +40,22 @@ export function ExploreMain() {
     }
   };
 
+  const handleAddToWatchlist = (tmdbId: string) => {
+    setLocalWatchlistIds((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(tmdbId);
+      return newSet;
+    });
+  };
+
+  const handleRemoveFromWatchlist = (tmdbId: string) => {
+    setLocalWatchlistIds((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(tmdbId);
+      return newSet;
+    });
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <ExploreSearchbar handleTMDBSearch={handleTMDBSearch} />
@@ -42,6 +64,9 @@ export function ExploreMain() {
         items={searchResults?.items || []}
         isLoading={isLoading}
         hasSearched={hasSearched}
+        watchlistIds={localWatchlistIds}
+        onAddToWatchlist={handleAddToWatchlist}
+        onRemoveFromWatchlist={handleRemoveFromWatchlist}
       />
 
       {searchResults && searchResults.items.length !== 0 && !isLoading && (
